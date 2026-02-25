@@ -143,28 +143,44 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== NEWSLETTER FORM ====================
   const newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const input = newsletterForm.querySelector('input[type="email"]');
+    
+      const input = newsletterForm.querySelector('input[name="email"]');
       const btn = newsletterForm.querySelector('button');
-      const email = input.value.trim();
-
-      if (email) {
-        // Formspree placeholder — swap the action URL to connect:
-        // newsletterForm.action = 'https://formspree.io/f/YOUR_FORM_ID';
-        // newsletterForm.submit();
-
-        btn.textContent = 'Subscribed!';
-        btn.style.background = 'linear-gradient(135deg, #6aab73, #3d8b4f)';
-        input.value = '';
-        input.placeholder = 'Thanks! Check your inbox.';
-
-        setTimeout(() => {
-          btn.textContent = 'Subscribe';
-          btn.style.background = '';
-          input.placeholder = 'Your email address';
-        }, 3000);
+      const email = input ? input.value.trim() : '';
+    
+      if (!email) return;
+    
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+    
+      try {
+        const res = await fetch(newsletterForm.action, {
+          method: 'POST',
+          body: new FormData(newsletterForm),
+          headers: { 'Accept': 'application/json' }
+        });
+      
+        if (res.ok) {
+          btn.textContent = 'Subscribed!';
+          btn.style.background = 'linear-gradient(135deg, #6aab73, #3d8b4f)';
+          input.value = '';
+          input.placeholder = 'Thanks! Check your inbox.';
+        } else {
+          btn.textContent = 'Try again';
+        }
+      } catch (err) {
+        btn.textContent = 'Try again';
       }
+    
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.background = '';
+        input.placeholder = 'Your email address';
+      }, 3000);
     });
   }
 

@@ -449,10 +449,25 @@
       <div class="newsletter-inner animate-on-scroll">
         <h2>Stay in the Loop</h2>
         <p>Weekly specials, seasonal menu drops, and bakery pre-orders &mdash; straight to your inbox.</p>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" placeholder="Your email address" required aria-label="Email address" />
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
+          <form
+            class="newsletter-form"
+            id="newsletterForm"
+            action="https://formspree.io/f/xvzbdwqj"
+            method="POST">
+
+            <input type="hidden" name="_subject" value="New Sunrise Cafe Newsletter Signup">
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email address"
+              required
+              aria-label="Email address" />
+
+            <button type="submit" class="btn btn-primary">
+              Subscribe
+            </button>
+          </form>
         <div class="newsletter-links">
           <a href="#" class="btn btn-outline" target="_blank" rel="noopener">Order on Square Online</a>
         </div>
@@ -498,7 +513,7 @@
         <div class="footer-links-col">
           <h4>Order Online</h4>
           <ul>
-            <li><a href="#" target="_blank" rel="noopener">Square Online</a></li>
+            <li><a href="https://squareup.com/us/en/online-store" target="_blank" rel="noopener">Square Online</a></li>
           </ul>
           <h4 style="margin-top: 1.5rem;">Contact</h4>
           <ul>
